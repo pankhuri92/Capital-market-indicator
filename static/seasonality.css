@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+    text-align: center;
+}
+
+.nav-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+}
+
+.nav-button {
+    background-color: #444;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: #666;
+}
+
+#back-button {
+    float: left;
+}
+
+#home-button {
+    float: right;
+}
+
+.heading {
+    font-size: 2.5em;
+    margin-top: 60px;
+}
+
+.caption {
+    font-size: 1.2em;
+    margin: 20px 0;
+    color: #d0d7e2;
+}
+
+.graph-container {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.graph-container img {
+    max-width: 80%;
+    height: auto;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: 2em;
+    }
+
+    .caption {
+        font-size: 1em;
+    }
+
+    .graph-container img {
+        max-width: 90%;
+    }
+}
