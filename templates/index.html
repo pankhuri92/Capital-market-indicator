@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Market Indicator</title>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- <div class="background"></div>
+    <div id="logo-div">
+        <img src="../assets/Little Voices-logo.png" id="logo">
+    </div> -->
+
+    <div class="content">
+        <h1 class="animate">CogniQ</h1>
+        <div class="textbox">Capital Market Indicator</div>
+    </div>
+
+    <div class="buttons">
+        <a href="markets.html"><button>GET STARTED</button></a>
+        <div class="textbox">Choose your stocks!</div>
+    </div>
+    
+    <div id="footer">
+        <button class="footer1" onclick="about_on()">ABOUT</button>
+        <button class="footer2" onclick="contact_on()">CONTACT US</button>
+    </div>
+ 
+    <div id="about" onclick="about_off()">
+        <div id="text">
+        <p>An advanced indicator that uses both historical market data and machine learning techniques to optimize entry and exit points in the Indian markets, with a focus on enhancing portfolio returns.</p></div>
+    </div>
+
+    <div id="contact" onclick="contact_off()">
+        <div id="text">
+            <center><h2>Hey There!</h2></center><br>
+            <center><h3>Ask us anything</h3></center>
+            <ul>
+                <li class="mail"><a href="mailto:sidharthgrover@gmail.com">sidharthgrover@gmail.com</a></li><br>
+                <li class="mail"><a href="mailto:asthanap192@gmail.com">asthanap192@gmail.com</a></li><br>
+                <li class="mail"><a href="mailto:m24.asthana@gmail.com">m24.asthana@gmail.com</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    function about_on() {
+      document.getElementById("about").style.display = "block";
+    }
+    
+    function about_off() {
+      document.getElementById("about").style.display = "none";
+    }
+    function contact_on() {
+      document.getElementById("contact").style.display = "block";
+    }
+    
+    function contact_off() {
+      document.getElementById("contact").style.display = "none";
+    }
+</script>
+</html>
