@@ -9,8 +9,8 @@
 <body>
 
     <div class="nav-buttons">
-        <a href="/templates/markets.html" class="nav-button" id="back-button">Back</a>
-        <a href="/templates/home.html" class="nav-button" id="home-button">Home</a>
+        <a href="{{ url_for('markets') }}" class="nav-button" id="back-button">Back</a>
+        <a href="{{ url_for('index') }}" class="nav-button" id="home-button">Home</a>
     </div>
 
     <div class="content">
@@ -20,7 +20,7 @@
         <div class="box-container">
             <a href="ema.html" class="box">EMA Analysis</a>
             <a href="ict.html" class="box">ICT Analysis</a>
-            <a href="/templates/seasonality.html" class="box">Seasonality Analysis</a>
+            <a href="{{ url_for('seasonality') }}" class="box">Seasonality Analysis</a>
         </div>
     </div>
 

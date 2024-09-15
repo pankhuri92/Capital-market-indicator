@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CogniQ Seasonality Analysis</title>
-    <link href="/static/seasonality.css" rel="stylesheet">
+    <title>Seasonality Analysis</title>
+    <link href="/static/indicators.css" rel="stylesheet">
 </head>
 <body>
 
     <div class="nav-buttons">
-        <a href="/templates/indicators.html" class="nav-button" id="back-button">Back</a>
-        <a href="/templates/home.html" class="nav-button" id="home-button">Home</a>
+        <a href="{{ url_for('markets') }}" class="nav-button" id="back-button">Back</a>
+        <a href="{{ url_for('index') }}" class="nav-button" id="home-button">Home</a>
     </div>
 
     <div class="content">
         <h1 class="heading">Seasonality Analysis</h1>
-        <p class="caption">Graph showing the indicator based on the analysis of ten year data</p>
+        <p class="caption">Stock performance across different months</p>
 
         <div class="graph-container">
-            <img src="C:/Users/Pankhuri/OneDrive/Desktop/Minor/demo2 a.png" alt="EMA Graph" id="graph">
+            <!-- Display the seasonality graph -->
+            <img src="{{ img_path }}" alt="Seasonality Graph" class="graph">
         </div>
     </div>
 
