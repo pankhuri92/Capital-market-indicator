@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSE Stock Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            overflow-y: scroll;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #eaeaea;
+        }
+        #suggestions {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        #selected-stocks {
+            margin-top: 20px;
+        }
+        #selected-stocks li {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+        }
+        .selected-stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            border: none;
+            color: white;
+        }
+        .remove-stock {
+            background-color: #f44336;
+        }
+        .remove-stock:hover {
+            background-color: #d32f2f;
+        }
+        .analyze-stock {
+            background-color: #2196F3;
+        }
+        .analyze-stock:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Indian Stocks (NSE)</h1>
+        <input type="text" id="stock-input" placeholder="Start typing a stock symbol..." autocomplete="off">
+        <ul id="suggestions"></ul>
+        
+        <h2>Selected Stocks</h2>
+        <ul id="selected-stocks"></ul> <!-- List to display selected stocks -->
+    </div>
+
+    <script>
+        // Fetch and display stock suggestions
+        document.getElementById('stock-input').addEventListener('input', async function(e) {
+            const query = e.target.value;
+            if (query.length > 0) {
+                const response = await fetch(`/search_stock?q=${query}`);
+                const stocks = await response.json();
+                const suggestions = document.getElementById('suggestions');
+                suggestions.innerHTML = '';  // Clear previous suggestions
+
+                stocks.forEach(stock => {
+                    const li = document.createElement('li');
+                    li.textContent = `${stock.symbol} - ${stock.name}`;
+                    li.addEventListener('click', () => addToProfile(stock.symbol));  // Handle click event
+                    suggestions.appendChild(li);
+                });
+            } else {
+                document.getElementById('suggestions').innerHTML = '';  // Clear suggestions if input is empty
+            }
+        });
+
+        // Add selected stock to the profile (stored in the database)
+        async function addToProfile(stockSymbol) {
+            const response = await fetch('/add_stock', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ symbol: stockSymbol }),
+            });
+
+            const selectedStocks = await response.json();  // Get updated selected stocks
+            console.log('Selected stocks after addition:', selectedStocks);
+            displaySelectedStocks(selectedStocks);
+        }
+
+        // Display selected stocks
+        function displaySelectedStocks(stocks) {
+            const selectedStocksList = document.getElementById('selected-stocks');
+            selectedStocksList.innerHTML = '';  // Clear current selected stocks
+
+            stocks.forEach(stock => {
+                const li = document.createElement('li');
+                const stockDiv = document.createElement('div');
+                stockDiv.classList.add('selected-stock-item');
+                stockDiv.textContent = stock;
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.classList.add('action-buttons');
+
+                const analyzeBtn = document.createElement('button');
+                analyzeBtn.textContent = 'Analyze';
+                analyzeBtn.classList.add('analyze-stock');
+                analyzeBtn.onclick = async function() {
+    await fetch('/set_stock_for_analysis', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ symbol: stock }),
+    });
+    window.location.href = `/indicators`;
+};
+
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.classList.add('remove-stock');
+                removeBtn.onclick = function() {
+                    removeStock(stock);
+                };
+
+                buttonContainer.appendChild(analyzeBtn);
+                buttonContainer.appendChild(removeBtn);
+
+                stockDiv.appendChild(buttonContainer);
+                li.appendChild(stockDiv);
+                selectedStocksList.appendChild(li);
+            });
+        }
+
+        // Remove a selected stock from the database
+        async function removeStock(stockSymbol) {
+            const response = await fetch(`/remove_stock?symbol=${stockSymbol}`, { method: 'POST' });
+            const selectedStocks = await response.json();  // Get updated selected stocks
+            console.log('Selected stocks after removal:', selectedStocks);
+            displaySelectedStocks(selectedStocks);
+        }
+
+        // Fetch and display selected stocks on page load
+        async function loadSelectedStocks() {
+            const response = await fetch('/get_selected_stocks');
+            const selectedStocks = await response.json();
+            console.log('Selected stocks on page load:', selectedStocks);
+            displaySelectedStocks(selectedStocks);
+        }
+
+        // Call on page load to display previously selected stocks
+        loadSelectedStocks();
+    </script>
+</body>
+</html>
