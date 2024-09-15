@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+h1, h2, p, a {
+    color: #fff;
+}
+
+h1.animate {
+    font-size: 4em;
+    font-weight: bold;
+    letter-spacing: 4px;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.textbox {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #d0d7e2;
+}
+
+.content {
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    background-color: #ffcc00;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #ffa500;
+    transform: scale(1.05);
+}
+
+a {
+    text-decoration: none;
+}
+
+.textbox {
+    margin-bottom: 20px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer1, .footer2 {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.footer1:hover, .footer2:hover {
+    background-color: #666;
+}
+
+#about, #contact {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+#text {
+    background-color: #1e3c72;
+    border-radius: 13px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    box-shadow: 4px 4px 6px rgba(255, 255, 255, 0.3);
+}
+
+ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.mail a {
+    color: #ffcc00;
+    font-size: 1.2em;
+}
+
+.mail a:hover {
+    color: #ffa500;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    h1.animate {
+        font-size: 2.5em;
+    }
+    
+    .textbox {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+
+    #text, #text1 {
+        width: 90%;
+    }
+}
