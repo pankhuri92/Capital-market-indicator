@@ -142,13 +142,16 @@ def seasonality():
     data['Month'] = data.index.month
     monthly_avg_close = data.groupby('Month')['Close'].mean()
 
+    min_value = monthly_avg_close.min()
+    monthly_avg_close_percentage = ((monthly_avg_close - min_value) / monthly_avg_close) * 100
+
     # Plot the seasonality graph
     plt.figure(figsize=(10, 6))
-    plt.plot(monthly_avg_close.index, monthly_avg_close.values, marker='o')
-    plt.xticks(monthly_avg_close.index, ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+    plt.plot(monthly_avg_close_percentage.index, monthly_avg_close_percentage.values, marker='o')
+    plt.xticks(monthly_avg_close_percentage.index, ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
     plt.xlabel('Month')
-    plt.ylabel('Average Closing Price')
-    plt.title(f'Seasonality Pattern in Stock Prices ({stock_symbol})')
+    plt.ylabel('Average Closing Price as % of Minimum')
+    plt.title('Seasonality Pattern in Stock Prices (Percentage)')
 
     plt.grid(True)
 
