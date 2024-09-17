@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capital Market Indicator/Indicators</title>
+    <title>EMA Analysis</title>
     <link href="/static/indicators.css" rel="stylesheet">
 </head>
 <body>
@@ -14,13 +14,12 @@
     </div>
 
     <div class="content">
-        <h1 class="heading">Indicators</h1>
-        <p class="caption">Choose what kind of analysis you need</p>
+        <h1 class="heading">EMA Analysis</h1>
+        <p class="caption">Exponential Moving Average (EMA) performance analysis</p>
 
-        <div class="box-container">
-            <a href="{{ url_for('EMA_optimization') }}" class="box">EMA Analysis</a>
-            <a href="ict.html" class="box">ICT Analysis</a>
-            <a href="{{ url_for('seasonality') }}" class="box">Seasonality Analysis</a>
+        <div class="graph-container">
+            <!-- Embed the Plotly graph -->
+            {{ plot_html | safe }}
         </div>
     </div>
 
