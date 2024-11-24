@@ -3,7 +3,7 @@ import numpy as np
 from scipy.interpolate import make_interp_spline
 import plotly.graph_objects as go
 import plotly.io as pio
-
+from smc_app import process_stock_data, generate_plot_html
 matplotlib.use('Agg')  # Set the backend to 'Agg' for non-GUI environments
 
 from flask import Flask, render_template, request, jsonify, session
@@ -276,6 +276,22 @@ def EMA_optimization():
     
     return render_template('EMA_optimization.html', stock_symbol=stock_symbol, plot_html=plot_html)
 
+@app.route('/SMC')
+def SMC():
+    # Retrieve the stock symbol from the session
+    stock_symbol = session.get('stock_symbol')
+    
+    if not stock_symbol:
+        return "No stock symbol found in session.", 400
+
+    
+    # Process the stock data and generate the plot
+    fig = process_stock_data(stock_symbol)
+    plot_html = pio.to_html(fig, full_html=False)
+    
+    # Render the template with the plot
+    return render_template('smc.html', plot_html=plot_html, stock_symbol=stock_symbol)
+    
 
 
 if __name__ == '__main__':
