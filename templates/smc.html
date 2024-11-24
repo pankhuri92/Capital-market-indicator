@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSE Option Chain</title>
+</head>
+<body>
+    <h1>NSE NIFTY Option Chain Data</h1>
+    <div id="data"></div>
+
+    <script>
+        async function fetchData() {
+            const response = await fetch('/get_data');
+            const data = await response.json();
+
+            const dataDiv = document.getElementById('data');
+            dataDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        window.onload = fetchData;
+    </script>
+</body>
+</html>
